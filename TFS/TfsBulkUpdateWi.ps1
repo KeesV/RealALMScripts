@@ -1,15 +1,27 @@
-﻿Function LoadTfsAssemblies() {
+﻿#This script sets a specific field to a specified value for all work items in a specific project
+
+Function LoadTfsAssemblies() {
     Add-Type –AssemblyName "Microsoft.TeamFoundation.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Add-Type -AssemblyName "Microsoft.TeamFoundation.WorkItemTracking.Client, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     
 }
 
-$tfsUri = "http://tfsserver:8080/tfs/TPC_Region11%20Sandbox"
+##### SETTINGS
+#The TFS Team Project Collection to connect to
+$tfsUri = "http://tfsserver:8080/tfs/DefaultCollection"
+
+#The TFS Team Project from which to select the work items
 $tfsProject = "Test Project"
+
+#The work item type of the work items to update
 $wiType = "Test Case"
+
+#The reference name of the field to update
 $wiFieldRefName = "Microsoft.VSTS.Common.Priority"
 
+#The value to set the field to
 $wiFieldNewValue = "1"
+##### END SETTINGS
 
 LoadTfsAssemblies
 $tfs = [Microsoft.TeamFoundation.Client.TfsTeamProjectCollectionFactory]::GetTeamProjectCollection($tfsUri)
